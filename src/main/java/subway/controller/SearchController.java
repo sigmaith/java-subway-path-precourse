@@ -7,6 +7,8 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
 import subway.controller.dto.SourceDestination;
+import subway.domain.Edge;
+import subway.domain.EdgeRepository;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.Station;
@@ -31,6 +33,7 @@ public class SearchController {
         this.outputView = outputView;
         configLines(); // 노선
         configStations(); // 정점
+        configEdges(); // 간선
         configDistances(); // 거리
         configRequiredTimes(); // 시간
     }
@@ -43,6 +46,19 @@ public class SearchController {
     private void configStations() {
         List<String> stationNames = Arrays.asList("교대역", "강남역", "역삼역", "남부터미널역", "양재역", "매봉역", "양재시민의숲역");
         stationNames.forEach(name -> StationRepository.addStation(new Station(name)));
+    }
+
+    private void configEdges() {
+        List<Edge> edges = Arrays.asList(
+                Edge.of(2, 3, StationRepository.getStationBy("교대역"), StationRepository.getStationBy("강남역")),
+                Edge.of(2, 3, StationRepository.getStationBy("강남역"), StationRepository.getStationBy("역삼역")),
+                Edge.of(3, 2, StationRepository.getStationBy("교대역"), StationRepository.getStationBy("남부터미널역")),
+                Edge.of(6, 5, StationRepository.getStationBy("남부터미널역"), StationRepository.getStationBy("양재역")),
+                Edge.of(1, 1, StationRepository.getStationBy("양재역"), StationRepository.getStationBy("매봉역")),
+                Edge.of(2, 8, StationRepository.getStationBy("강남역"), StationRepository.getStationBy("양재역")),
+                Edge.of(10, 3, StationRepository.getStationBy("양재역"), StationRepository.getStationBy("양재시민의숲역"))
+        );
+        edges.forEach(EdgeRepository::addEdge);
     }
 
     private void configDistances() {

@@ -26,7 +26,7 @@ public class StationRepository {
         stations.clear();
     }
 
-    public Station getStationBy(String name) {
+    public static Station getStationBy(String name) {
         return stations.stream().filter(station -> station.getName().equals(name)).findFirst()
                 .orElseThrow(() -> CustomException.from(
                         ErrorMessage.INVALID_STATION_NAME));
