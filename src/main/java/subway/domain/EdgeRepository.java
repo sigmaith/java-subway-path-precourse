@@ -45,4 +45,8 @@ public class EdgeRepository {
         return edges.stream().filter(edge -> edge.isEdgeOf(src, dest))
                 .findFirst().orElseThrow(() -> CustomException.from(ErrorMessage.INVALID_EDGE));
     }
+
+    public static void deleteAll() {
+        edges.clear();
+    }
 }
