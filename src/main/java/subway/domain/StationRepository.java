@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import subway.exception.CustomException;
+import subway.exception.ErrorMessage;
 
 public class StationRepository {
     private static final List<Station> stations = new ArrayList<>();
@@ -22,5 +24,11 @@ public class StationRepository {
 
     public static void deleteAll() {
         stations.clear();
+    }
+
+    public Station getStationBy(String name) {
+        return stations.stream().filter(station -> station.getName().equals(name)).findFirst()
+                .orElseThrow(() -> CustomException.from(
+                        ErrorMessage.INVALID_STATION_NAME));
     }
 }
