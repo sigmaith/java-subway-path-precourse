@@ -1,5 +1,10 @@
 package subway.controller;
 
+import static subway.view.InputView.B_OPTION;
+import static subway.view.InputView.ONE;
+import static subway.view.InputView.Q_OPTION;
+import static subway.view.InputView.TWO;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
@@ -90,7 +95,7 @@ public class SearchController {
     public void run() {
         while (true) {
             String mainFunction = retry(inputView::getFunctionInMain);
-            if (mainFunction.equals("Q")) {
+            if (mainFunction.equals(Q_OPTION)) {
                 break;
             }
             startPathSearching();
@@ -100,7 +105,7 @@ public class SearchController {
     private void startPathSearching() {
         while (true) {
             String searchCriteria = retry(inputView::getSearchCriteria); // 경로탐색 기준 or 메인화면으로 돌아가기
-            if (searchCriteria.equals("B")) { // 메인화면으로 돌아가
+            if (searchCriteria.equals(B_OPTION)) { // 메인화면으로 돌아가
                 break; // 스스로의 의지로 돌아가거나
             }
             try {
@@ -115,10 +120,10 @@ public class SearchController {
 
     private void searchPathBy(String searchCriteria) throws IllegalArgumentException {
         SourceDestination sourceDestination = inputView.getStationInfo(); // 출발지, 도착지 입력
-        if (searchCriteria.equals("1")) {
+        if (searchCriteria.equals(ONE)) {
             shortestPath = searchShortestDistancePath(sourceDestination);
         }
-        if (searchCriteria.equals("2")) {
+        if (searchCriteria.equals(TWO)) {
             shortestPath = searchShortestTimePath(sourceDestination);
         }
     }

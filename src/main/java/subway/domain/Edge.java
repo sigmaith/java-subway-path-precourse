@@ -29,9 +29,6 @@ public class Edge {
         if (s1.getName().equals(src) && s2.getName().equals(dest)) {
             return true;
         }
-        if (s2.getName().equals(src) && s1.getName().equals(dest)) {
-            return true;
-        }
-        return false;
+        return s2.getName().equals(src) && s1.getName().equals(dest);
     }
 }
