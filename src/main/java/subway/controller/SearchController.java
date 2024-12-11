@@ -94,18 +94,18 @@ public class SearchController {
                 break;
             }
             startPathSearching();
-
         }
     }
 
     private void startPathSearching() {
         while (true) {
-            String searchCriteria = retry(inputView::getSearchCriteria); // 경로 선택
+            String searchCriteria = retry(inputView::getSearchCriteria); // 경로탐색 기준 or 메인화면으로 돌아가기
             if (searchCriteria.equals("B")) { // 메인화면으로 돌아가
                 break; // 스스로의 의지로 돌아가거나
             }
             try {
                 searchPathBy(searchCriteria); // 경로 조회
+                outputView.printInquiryResult(shortestPath); // 경로 출력
                 break; // 경로탐색에 성공하거나
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -114,7 +114,7 @@ public class SearchController {
     }
 
     private void searchPathBy(String searchCriteria) throws IllegalArgumentException {
-        SourceDestination sourceDestination = retry(inputView::getStationInfo); // 출발지, 도착지 입력
+        SourceDestination sourceDestination = inputView.getStationInfo(); // 출발지, 도착지 입력
         if (searchCriteria.equals("1")) {
             shortestPath = searchShortestDistancePath(sourceDestination);
         }
@@ -126,8 +126,8 @@ public class SearchController {
     private List<String> searchShortestDistancePath(SourceDestination sourceDestination) {
         try {
             DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(graphDist);
-            List<String> shortestPath = dijkstraShortestPath.getPath(sourceDestination.source(),
-                    sourceDestination.destination()).getVertexList();
+            List<String> shortestPath = dijkstraShortestPath.getPath(sourceDestination.getSource(),
+                    sourceDestination.getDestination()).getVertexList();
             return shortestPath;
         } catch (NullPointerException e) {
             throw CustomException.from(ErrorMessage.UNABLE_TO_ARRIVE);
@@ -137,8 +137,8 @@ public class SearchController {
     private List<String> searchShortestTimePath(SourceDestination sourceDestination) {
         try {
             DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(graphTime);
-            List<String> shortestPath = dijkstraShortestPath.getPath(sourceDestination.source(),
-                    sourceDestination.destination()).getVertexList();
+            List<String> shortestPath = dijkstraShortestPath.getPath(sourceDestination.getSource(),
+                    sourceDestination.getDestination()).getVertexList();
             return shortestPath;
         } catch (NullPointerException e) {
             throw CustomException.from(ErrorMessage.UNABLE_TO_ARRIVE);

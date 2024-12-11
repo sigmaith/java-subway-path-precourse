@@ -29,7 +29,7 @@ public class InputView {
     }
 
     public String getSearchCriteria() {
-        System.out.println("## 경로 기준\n"
+        System.out.println("\n## 경로 기준\n"
                 + "1. 최단 거리\n"
                 + "2. 최소 시간 \n"
                 + "B. 돌아가기\n\n"
@@ -45,7 +45,7 @@ public class InputView {
     }
 
     public SourceDestination getStationInfo() {
-        System.out.println("## 출발역을 입력하세요.");
+        System.out.println("\n## 출발역을 입력하세요.");
         String source = sc.next().trim();
         System.out.println("\n## 도착역을 입력하세요.");
         String destination = sc.next().trim();
