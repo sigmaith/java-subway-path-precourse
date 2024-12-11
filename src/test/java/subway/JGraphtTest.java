@@ -38,6 +38,6 @@ public class JGraphtTest {
         DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(graph);
 
         assertThatThrownBy(() -> dijkstraShortestPath.getPath("v3", "v1").getVertexList())
-                .isInstanceOf(NullPointerException.class); // 경로가 없을 땐 NPE가 발생하니 이를 이용하면 된다.
+                .isInstanceOf(NullPointerException.class); // 경로가 없을 땐 NPE 가 발생하니 이를 이용하면 된다.
     }
 }

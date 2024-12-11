@@ -1,6 +1,7 @@
 package subway.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import subway.exception.CustomException;
 import subway.exception.ErrorMessage;
@@ -8,8 +9,8 @@ import subway.exception.ErrorMessage;
 public class EdgeRepository {
     private static final List<Edge> edges = new ArrayList<>();
 
-    public static void addEdge(Edge edge) {
-        edges.add(edge);
+    public static List<Edge> edges() {
+        return Collections.unmodifiableList(edges);
     }
 
     public static Integer getWholeDistance(List<String> path) {
@@ -18,6 +19,10 @@ public class EdgeRepository {
             wholeDistance += getDistanceOf(path.get(i - 1), path.get(i));
         }
         return wholeDistance;
+    }
+
+    public static void addEdge(Edge edge) {
+        edges.add(edge);
     }
 
     public static Integer getWholeTime(List<String> path) {
